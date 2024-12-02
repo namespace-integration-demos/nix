@@ -42,6 +42,7 @@
           sqlite
           unzip
           cargo
+          jdk8
         ];
       };
     });
