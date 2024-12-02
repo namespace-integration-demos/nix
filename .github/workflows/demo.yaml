@@ -27,7 +27,6 @@ jobs:
       - name: Build a package
         run: |
           nix develop --accept-flake-config -c pre-commit run
-          ls -lsah result/bin
 
   with-ns-cache-volume:
     runs-on:
@@ -50,7 +49,6 @@ jobs:
       - name: Build a package
         run: |
           nix develop --accept-flake-config -c pre-commit run
-          ls -lsah result/bin
 
   with-ns-cache-in-container:
     # Running in containers requires extra configuration.
@@ -89,7 +87,6 @@ jobs:
       - name: Build a package
         run: |
           nix develop --accept-flake-config -c pre-commit run
-          ls -lsah result/bin
 
   with-magic-nix-cache:
     runs-on:
@@ -109,7 +106,6 @@ jobs:
       - name: Build a package
         run: |
           nix develop --accept-flake-config -c pre-commit run
-          ls -lsah result/bin
 
   # DeterminateSystems/nix-installer-action doesn't support nscloud cache.
   # https://namespacelabs.slack.com/archives/C052BNWAFLL/p1709047110830379
@@ -146,4 +142,3 @@ jobs:
   #     - name: Build a package
   #       run: |
   #         nix develop --accept-flake-config -c pre-commit run
-  #         ls -lsah result/bin
