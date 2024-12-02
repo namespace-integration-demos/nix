@@ -26,8 +26,7 @@ jobs:
 
       - name: Build a package
         run: |
-          nix build 'nixpkgs#google-cloud-sdk'
-          ls -lsah result/bin
+          nix develop --accept-flake-config -c pre-commit run
 
   with-ns-cache-volume:
     runs-on:
@@ -49,47 +48,7 @@ jobs:
 
       - name: Build a package
         run: |
-          nix build 'nixpkgs#google-cloud-sdk'
-          ls -lsah result/bin
-
-  with-ns-cache-in-container:
-    # Running in containers requires extra configuration.
-    # We also configure a unique cache tag to not share caches with workflows running outside containers.
-    # See https://namespace.so/docs/actions/nscloud-cache-action#advanced-running-github-jobs-in-containers
-    runs-on:
-      - nscloud-ubuntu-22.04-amd64-2x4-with-cache
-      - nscloud-cache-size-20gb
-      - nscloud-cache-tag-nix-in-container
-
-    container:
-      image: node:21
-      env:
-        NSC_CACHE_PATH: ${{ env.NSC_CACHE_PATH }}
-      volumes:
-        - /cache:/cache
-      options: --cap-add=SYS_ADMIN
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install sudo
-        run: |
-          apt-get update -y && apt-get install -y sudo
-
-      - name: Set up Nix cache
-        uses: namespacelabs/nscloud-cache-action@v1
-        with:
-          path: /nix
-
-      - uses: cachix/install-nix-action@v23
-        with:
-          extra_nix_config: |
-            system-features = kvm nixos-test
-
-      - name: Build a package
-        run: |
-          nix build 'nixpkgs#google-cloud-sdk'
-          ls -lsah result/bin
+          nix develop --accept-flake-config -c pre-commit run
 
   with-magic-nix-cache:
     runs-on:
@@ -108,8 +67,7 @@ jobs:
 
       - name: Build a package
         run: |
-          nix build 'nixpkgs#google-cloud-sdk'
-          ls -lsah result/bin
+          nix develop --accept-flake-config -c pre-commit run
 
   # DeterminateSystems/nix-installer-action doesn't support nscloud cache.
   # https://namespacelabs.slack.com/archives/C052BNWAFLL/p1709047110830379
@@ -145,5 +103,4 @@ jobs:
 
   #     - name: Build a package
   #       run: |
-  #         nix build 'nixpkgs#google-cloud-sdk'
-  #         ls -lsah result/bin
+  #         nix develop --accept-flake-config -c pre-commit run
