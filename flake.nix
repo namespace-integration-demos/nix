@@ -38,6 +38,10 @@
           google-cloud-sdk
           
           clang-tools
+          brotli
+          sqlite
+          unzip
+          cargo
         ];
       };
     });
