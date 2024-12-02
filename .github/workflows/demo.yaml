@@ -108,7 +108,7 @@ jobs:
 
       - name: Build a package
         run: |
-          nix develop --accept-flake-config run
+          nix develop --accept-flake-config -c pre-commit run
           ls -lsah result/bin
 
   # DeterminateSystems/nix-installer-action doesn't support nscloud cache.
